@@ -1,3 +1,3 @@
 export default function CartDetail() {
-    return <><div>Cart Detail</div></>
+	return <><div>Cart Detail</div></>
 }
