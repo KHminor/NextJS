@@ -3,7 +3,9 @@ import Link from 'next/link'
 
 export default function MultiCheck() {
   const router = useRouter();
-
+  const click = () => {
+    router.push("/cart")
+  }
 
   if (!router.isReady) return <><div>로딩중...</div></>
   return (
@@ -16,6 +18,7 @@ export default function MultiCheck() {
         <li><Link href="/cart/">cart</Link></li>
         <li><Link href={`/cart/${router.query.slug}`}>cart-detail</Link></li>
       </ul>
+      <button onClick={click}>카트로 슈욱</button>
     </>
   )
 }
