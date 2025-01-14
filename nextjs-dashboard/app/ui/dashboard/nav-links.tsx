@@ -23,8 +23,14 @@ const links = [
 
 export default function NavLinks() {
   const pathname = usePathname();
-  const Click = () => {
-    console.log(pathname);
+  const Click = (link:any) => {
+    setTimeout(() => {
+      console.log("link.href: ", link.href);
+    }, 1000);
+    setTimeout(() => {
+      console.log("pathname: ", pathname);
+    }, 5000);
+    // console.log(pathname === link.href);
     
   }
   return (
@@ -41,7 +47,7 @@ export default function NavLinks() {
                 'bg-sky-100 text-blue-600': pathname === link.href
               }
             )}
-            onClick={Click}
+            onClick={()=>Click(link)}
           >
             <LinkIcon className="w-6" />
             <p className="hidden md:block">{link.name}</p>
