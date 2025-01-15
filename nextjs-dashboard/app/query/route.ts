@@ -14,7 +14,7 @@ async function listInvoices() {
 }
 
 export async function GET() {
-  try {
+    try {
   	return Response.json(await listInvoices());
   } catch (error) {
   	return Response.json({ error }, { status: 500 });
