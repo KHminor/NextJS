@@ -244,16 +244,16 @@
         - 클라이언트 컴포넌트의 브라우저 종속성을 명확히 분리
   - **page & layout**
     - page 명으로 작성한 파일은 해당 경로의 default 페이지가 됨.
-  
+
     - layout 명으로 작성한 파일은 해당 경로로 default 레이아웃으로 
       - children을 파라미터 값으로 children을 받아 원하는 곳에 위치하도록 한다면
-  
+
       - 해당 위치에 관련 페이지가 렌더링 됨.
   - **요청 워터폴 vs 병렬 데이터 페칭**
     - 요청 워터폴: 순서대로 요청
-  
+
     - 병렬 데이터 페칭: 병렬로 데이터 요청 -> Promise.all([])
-  
+
   - **스트리밍**
     - 경로를 더 작은 조각으로 나누고 데이터가 준비되면 
       서버에서 클라이언트로 점진적으로 스트리밍할 수 있는 데이터 전송 기술.
@@ -275,7 +275,6 @@
       - 특정 구성요소의 경우 Suspense 태그 사용.
         - suspense를 사용할 경우 보다 세부적으로 특정 구성 요소를 스트리밍 할 수 있음.
         - 또한 일부 조건이 충족될 때까지 애플리케이션의 렌더링 부분을 연기할 수 있음.
-
 - 부분 사전 렌더링(PPR, NextJS 14 이후만 가능)
   - 오늘날 구축된 대부분의 웹 앱의 경우 특정 경로에 대해 정적 및 동적 렌더링 중에서 선택함.
   - 그러나 대부분의 경우 완전히 정적이거나 동적이 아님.
@@ -284,3 +283,215 @@
       - 사용자의 장바구니와 추천 제품을 동적으로 가져오고 싶을 수 있음.
   - 사용법
     - 기본적으로 React의 Suspense를 사용.
+- **URL 검색 매개변수**
+  - 사용 이유
+    - 북마크 및 공유가 가능한 URL
+      - 검색 매개변수가 URL에 있으므로 사용자는 검색 쿼리와 필터를 포함하여 애플리케이션의
+        현재 상태를 북마크하여 향후 참조 또는 공유할 수 있음.
+    - 서버 측 렌더링
+      - URL 매개변수를 서버에서 직접 사용하여 초기 상태를 렌더링할 수 있기에
+        서버 렌더링을 처리하기가 더 쉬워짐.
+    - 분석 및 추적
+      - URL에 검색어와 필터를 직접 추가하면 추가적인 클라이언트 측 로직이 필요 없이
+        사용자 행동을 쉽게 추적할 수 있다.
+  - 검색 기능 추가 Hook (강의 예시)
+    - useSearchParams: 현재 URL의 매개변수에 액세스할 수 있음.
+      - ex) /dashboard/invoices?page=1&query=pending 의 경우
+      - 해당 URL의 검색 매개변수는 {page: '1', query: 'pending'} 와 같다.
+      - 즉, URL 쿼리 매개변수를 조작하기 위한 유틸리티 메서드를 제공하는 웹 API
+    - usePathname: 현재 URL의 경로 이름을 읽을 수 있음.
+      - ex) /dashboard/invoices 의 경우
+      - '/dashboard/invoices' 를 반환
+    - useRouter: 클라이언트 구성 요소 내에서 경로 간 탐색을 프로그래밍 방식으로 활성화 함.
+
+- useState
+  - 기본적으로 sueState로 지정한 변수는 컴포넌트가 랜더링 되기 전에 초기화가 됨.
+  - 그렇기에 순서상 useEffect 보다 먼저 초기값이 할당됨.
+
+
+
+- **서버 액션(React Server Actions)**
+
+  - 사용 이유
+
+    - 비동기 코드를 서버에서 직접 실행할 수 있음.
+    - 데이터 변경을 위해 API 엔드포인트를 만들 필요가 없음.
+    - 대신 서버에서 실행되고 클라이언트 또는 서버 구성 요소에서 호출할 수 있는 비동기 함수를 작성해야 함.
+    - 다양한 보안 위협으로 인해 다음과 같은 기능이 포함되어 있음.
+      - 암호화된 클로저
+      - 엄격한 입력 검사
+      - 오류 메시지 해싱
+      - 호스트 제한
+
+  - 사용 방법
+
+    - 서버 작업 생성
+      - 'use server' 를 파일 상단에 추가
+      - 추가 시 파일 내의 모든 내보낸 함수를 서버 작업으로 표시.
+      - 이후 서버 함수를 가져와 클라이언트 및 서버 구성 요소에서 사용할 수 있다.
+      - 해당 파일에 포함된 함수 중 사용되지 않는 함수는 최종 애플리케이션 번들에서 자동 제거.
+      - 또한 액션 내부에 추가하여 Serveer Components 내부에 Server Actions를 직접 작성할 수 도 있음.
+
+  - 순서
+
+    1. 서버 파일 생성
+
+    2. 서버 파일에 비동기 함수 작성
+
+    3. 이후 서버 파일에 작성한 함수를 적용할 Form 태그에 action으로 전달
+
+    4. Form 태그로부터 전달 받은 데이터 추출
+
+       - 아래에서 key값은 특정 태그의 name 속성에 해당함.
+
+       ```javascript
+       'use server';
+        
+       export async function createInvoice(formData: FormData) {
+         const rawFormData = {
+           customerId: formData.get('customerId'),
+           amount: formData.get('amount'),
+           status: formData.get('status'),
+         };
+         // Test it out:
+         console.log(rawFormData);
+       }
+       ```
+
+    5. 데이터 검증 및 준비
+
+       - DB의 데이터 타입과 동일해야 하기에 예상 유형과 일치하는지 확인해야 함.
+
+       - ex) 현재 amount는 input type으로 number로 설정했지만, 전달 받은 데이터 타입은 string으로 확인.
+
+         - 이에 따라 실제로 숫자가 아닌 문자열을 반환받게 되어 문제가 발생할 수 있음.
+
+       - 이를 위해 예를 들어 TypeScript 우선 검증 라이브러리인 Zod를 사용
+
+         - amount 필드와 같이 문자열을 숫자로 강제 변환하고, 해당 유형의 유효성을 검사
+           - 원인은 자바스크립트의 기본 동작이 사용자 입력을 문자열로 취급.
+
+         ```javascript
+         'use server'
+         
+         import { z } from 'zod';
+         
+         const FormSchema = z.object({
+           id: z.string(),
+           customerId: z.string(),
+           amount: z.coerce.number(),
+           status: z.enum(['pending', 'padin']),
+           data: z.string(),
+         })
+         
+         const CreateInvoice = FormSchema.omit({ id: true, data: true});
+         
+         export async function createInvoice(formData: FormData) {
+           const rawFormData = {
+             customerId: formData.get('customerId'),
+             amount: formData.get('amount'),
+             status: formData.get('status')
+           };
+         }
+         ```
+
+    6. 재검증 및 리디렉션
+
+       - NextJs에는 경로 세그먼트를 일정 시간 동안 사용자 브라우저에 저장하는
+         클라이언트 측 라우터 캐시가 있음.
+
+         - 해당 캐시는 사전 페칭과 함께 사용자가 서버에 대한 요청 수를 줄이는 동시에
+           경로 간을 빠르게 탐색할 수 있도록 함.
+
+       - 송장 경로에 표시된 데이터를 업데이트하고 있기에, 해당 캐시를 지우고 서버에 대한
+          새로운 요청을 트리거하기 위해 revalidatePath 메서드를 사용하여 수행.
+
+       - **쉽게 이해하자면**
+
+         - NextJS는 성능 최적화를 위해 페이지를 정적으로 생성하여 캐시함.
+           - 하지만 정적으로 생성된 페이지는 데이터가 변경되었을 때, 즉시 업데이트 되지 않음.
+           - 따라서 새로운 데이터가 추가되거나 수정된 경우, 해당 페이지의 정적 파일을 재생성해야 함.
+         - 이를 위해 revalidatePath를 사용.
+           - 지정된 경로의 캐시를 무효화하고, 백그라운드에서 해당 페이지를 다시 생성하도록 트리거.
+           - 즉, 사용자가 새로 고침하거나 다시 방문하면 최신 데이터를 볼 수 있음
+         - 필요한 시점
+           - 페이지가 SSG(Static Site Generation) 또는 ISR(Incremental Static Regeneration) 
+             방식으로 생성된 경우.
+           - 데이터가 변경될 때마다 해당 데이터가 반영된 페이지가 필요할 경우.
+           - 실시간 데이터 업데이트가 중요하지만, 모든 요청에서 SSR을 사용해 
+             성능을 희생하고 싶지 않을 경우.
+
+       - 위의 경우에 대한 나의 생각
+
+         ```markdown
+         # GPT가 맞다고 함.
+         해당 파일에서 use server을 명시하며 revalidatePath 메서드를 함께 사용하는 이유가 
+         SSR을 전반적으로 유지하되 특정 요청에 대해서만 데이터 업데이트를 적용하고 싶어서
+         ```
+
+    7. Redirect 하기
+
+       - next/navigation 을 import 하여 다음과 같이 적용
+
+         ```javascript
+         'use server'
+         
+         import { z } from 'zod';
+         import { sql } from '@vercel/postgres';
+         import { revalidatePath } from 'next/cache';
+         import { redirect } from 'next/navigation';
+         
+         const FormSchema = z.object({
+           id: z.string(),
+           customerId: z.string(),
+           amount: z.coerce.number(),
+           status: z.enum(['pending', 'padin']),
+           data: z.string(),
+         })
+         
+         const CreateInvoice = FormSchema.omit({ id: true, data: true});
+         
+         export async function createInvoice(formData: FormData) {
+           const {customerId, amount, status} =  CreateInvoice .parse( {
+             customerId: formData.get('customerId'),
+             amount: formData.get('amount'),
+             status: formData.get('status')
+           });
+           const amountInCents = amount * 100; // 센트화
+           const data = new Date().toISOString().split('T')[0]; // 날짜 YYYY-MM-DD 형식 변경
+         
+           await sql`
+             INSERT INTO invoices (customer_id, amount, status, data)
+             VALUES (${customerId}, ${amountInCents}, ${status}, ${data})
+           `
+         
+           revalidatePath('/dashboard/invoices')
+           redirect('/dashboard/invoices')
+         }
+         ```
+
+         
+
+  - **송장 업데이트**
+
+    - 순서
+      - 송장을 사용하여 새로운 동적 경로 세그먼트 생성.
+      - `id`페이지 매개변수에서 송장 읽기.
+      - 데이터베이스에서 특정 송장 가져오기.
+      - 송장 데이터로 양식 미리 채우기.
+      - 데이터베이스의 송장 데이터를 업데이트.
+
+    1. 동적 경로 세그먼트 생성
+       - 정확한 세그먼트 이름을 모르고 데이터를 기반으로 경로를 만들고 싶을 때 
+         동적 경로 세그먼트를 만들어 사용.
+
+
+
+
+
+- **UUID** 
+  - 사용 이유
+    - id 값 자체와 유사하지만, UUID를 사용하게 되면
+    - URL이 길어지지만 ID 충돌 위험을 제거하고, 전역적으로 고유하며 열거형 공격 위험을 줄여줌.
+
+- 하이드레이션
