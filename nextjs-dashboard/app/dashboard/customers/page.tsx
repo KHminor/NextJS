@@ -1,3 +1,9 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'customer'
+}
+
 export default function Page(props: {
   searchParams?: Promise<{
     query?: string;

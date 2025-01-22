@@ -485,6 +485,74 @@
        - 정확한 세그먼트 이름을 모르고 데이터를 기반으로 경로를 만들고 싶을 때 
          동적 경로 세그먼트를 만들어 사용.
 
+  - **bind 메서드**
+
+    - 특정 메서드에 고정된 값을 넣고자 한다면 bind를 사용하여
+
+    - 파라미터의 첫 값은 this 값을 넣고, 없다면 null 
+
+    - 이후 부터는 파라미터 순서대로 고정 값을 추가하면 됨.
+
+    - 예시와 궁금증
+
+      - 아래와 같이 form 태그의 action으로 invoice의 id값을 추가하여 
+        form에 작성된 데이터를 서버로 전달하고자 할 경우
+      - 단순히 updateInvoice(invoice.id) 를 action으로 전달하게 되면
+        그냥 실행 결과만 전달하게 됨.
+      - 따라서 form data도 전달하면서 invoice의 id값을 함께 전달하고자 한다면
+      - javascript의 bind 메서드를 사용할 수 있음.
+
+      ```javascript
+      // 간단 예시 코드
+      function edit-forms() {
+          // 인코딩된 id가 고정된 새로운 함수  
+        const updateInvoiceWithId = updateInvoice.bind(null, invoice.id) 
+        return (
+          <form action={updateInvoiceWithId}>
+      }
+      ```
+
+- **redirect**
+
+  - redirect는 내부적으로 에러를 던지는 방식으로 작동.
+  - 따라서 trt-catch 블록 내부에 사용하게 된다면 에러를 던지기에 redirect가 의도한 대로 동작 X
+
+- **useRef**
+
+  - 기존에는 1개의 태그엔 1개의 useRef를 생성하여 각 태그에 접근하도록 만들어 사용했음.
+
+    - 이유는 그 당시 기본적으로 단일 요소를 참조하는 데 사용된다고 하여 그렇게 사용했음.
+
+  - 새롭게 알아본 결과
+
+    - 기본적으론 이전 지식과 동일하지만, 배열이나 객체를 사용하여 여러 요소를 관리할 수 있음.
+    - 이를 통해 여러 radio 버튼이나, 다른 여러 DOM 요소를 하나의 useRef로 관리 가능.
+
+    ```javascript
+    // 예시
+    const radioRefs = useRef<HTMLInputElement[]>([]); // 여러 요소를 저장할 배열
+    
+    // 이후 input 태그에 ref 속성 부여
+    <input 
+    	ref={(el) => el && radioRefs.current.pupsh(el)}
+        type="radio"
+    />
+    ```
+
+- **Form 데이터 제출 전 검증**
+  - 클라이언트 측 검증
+    - 우선 특정 입력 태그(ex. input, select ...) 등에 required 속성 추가하여 입력을 하도록 함.
+    - 만약 다양한 radio 타입의 input 중 하나라도 체크를 하도록 하고자 한다면
+      - 같은 name 속성으로 두고 모두 required 속성을 부여한다면 됨.
+  - 서버 측 검증
+    - useActonState 훅 사용
+      - 두 가지 파라미터를 받음(action, initailState)
+      - 두 가지 값을 반환[state, formAction] - 양식 상태 및 양식이 제출될 때 호출될 함수
+
+
+
+
+
 
 
 
