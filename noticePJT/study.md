@@ -150,6 +150,153 @@
 
 
 
+- Layout
+
+  - App Router
+
+    - layout.js 파일로 레이아웃을 작성
+
+  - Page Router 
+
+    - _app.js (글로벌 레이아웃)
+
+      - 모든 페이지에 적용되는 공통 레이아웃을 설정할 때 사용.
+
+        ```javascript
+        // pages/_app.js
+        import Layout from "../components/Layout";
+        import "../styles/globals.css"; // 전역 스타일
+        
+        function MyApp({ Component, pageProps }) {
+          return (
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          );
+        }
+        
+        export default MyApp;
+        ```
+
+        ```javascript
+        // components/Layout.js
+        import Link from "next/link";
+        
+        export default function Layout({ children }) {
+          return (
+            <div>
+              <nav>
+                <Link href="/">Home</Link>
+                <Link href="/about">About</Link>
+                <Link href="/contact">Contact</Link>
+              </nav>
+              <main>{children}</main>
+            </div>
+          );
+        }
+        ```
+
+        
+
+    - _document.js(HTML 구조 변경)
+
+      ```javascript
+      // pages/_document.js
+      import { Html, Head, Main, NextScript } from "next/document";
+      
+      export default function Document() {
+        return (
+          <Html lang="en">
+            <Head>
+              <meta charSet="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </Head>
+            <body>
+              <Main />
+              <NextScript />
+            </body>
+          </Html>
+        );
+      }
+      ```
+
+
+
+- usePathname() vs useRouter().pathname
+  - app Router -> usePathname()
+    - 이유
+      - Next.js가 서버 중심의 라우팅을 관리
+      - useRouter()는 Page Router 전용이기에, 사용 불가
+      - usePathname()은 next/navigation에서 제공하는 App Router 전용 훅이기에, 현재 경로만 반환하는 역할.
+  - page Router -> useRouter().pathname
+    - 이유
+      - next/router를 통해 CSR을 관리
+      - 기본적으로 라우터 상태를 가지고 있기에 동적 라우팅이 가능
+      - 페이지 전환 시 pathname이 자동으로 업데이트됨
+
+
+
+- Page Router vs App Router
+
+  - Page Router
+
+    - 기본적으로 CSR
+
+    - 'use client', 'use server' 사용 불가
+
+      - 기본적으로 모든 코드가 클라이언트에서 실행되기에 사용 불가
+
+      - 서버 관련 작업하는 방법
+
+        - API Route를 사용하여 서버에서 데이터를 처리해야 함.
+
+        - 즉, 서버 액션을 직접 사용할 수 없고, API 라우트를 통해 서버 로직을 분리해야 함.
+
+          ```javascript
+          // pages/api/data.js
+          
+          export default async function handler(req, res) {
+            if (req.method === "GET") {
+              // DB 쿼리 실행 (예시)
+              const data = { message: "서버에서 가져온 데이터" };
+              res.status(200).json(data);
+            } else {
+              res.status(405).json({ error: "Method Not Allowed" });
+            }
+          }
+          ```
+
+          ```javascript
+          // pages/index.js (클라이언트에서 실행)
+          
+          import { useEffect, useState } from "react";
+          
+          export default function HomePage() {
+            const [data, setData] = useState(null);
+          
+            useEffect(() => {
+              fetch("/api/data")
+                .then((res) => res.json())
+                .then((result) => setData(result.message));
+            }, []);
+          
+            return <div>서버 데이터: {data || "로딩 중..."}</div>;
+          }
+          ```
+
+          
+
+  - App Router
+
+    - 기본적으로 SSR
+    - 'use client', 'use server' 사용 가능
+      - App Router에서만 지원하는 기능
+      - use server
+        - 서버 액션을 정의할 때 사용하는 지시어
+          - API 라우트 없이도 서버에서 직접 DB 쿼리, API 호출 등을 실행 가능
+
+
+
 
 
 ---
