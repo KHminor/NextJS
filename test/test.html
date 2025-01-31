@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수빈님 요청 랜딩</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="<? echo $url; ?>/landing/js/jquery.vticker.min.js"></script>
+    <script src="<? echo $url; ?>/landing/flip/flip.min.js"></script>
+    <style>
+        img, iframe{
+            transition: all 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940);
+        }
+        .start_img {
+            width: 0px;
+            height: 0px;
+            border: solid 0rem #f7f7ff;
+        }
+        .end_img {
+            width: auto;
+            height: 750px;
+            border: solid 1rem #f7f7ff;
+            border-radius: 1rem;
+        }
+
+        .start_video {
+            width: 0px;
+            height: 0px;
+            border: solid 0rem #f7f7ff;
+        }
+        .end_video {
+            width: 630px;
+            height: 340px;
+            border: solid 1rem #f7f7ff;
+            border-radius: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <figure>
+        <img id="top_img" src="./img/landing.png" alt="" class="start_img">
+    </figure>
+    <figure>
+        <iframe id="middle_video" class="start_video" src="https://www.youtube.com/embed/_V9JxdK-mVY?controls=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </figure>
+    <figure>
+        <iframe id="middle_video2" class="start_video" src="https://www.youtube.com/embed/_V9JxdK-mVY?controls=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </figure>
+</body>
+
+<script>
+    
+    setTimeout(()=> {
+        $('#top_img').removeClass('start_img');
+        $('#top_img').addClass('end_img');
+    },1000)
+
+    setTimeout(() => {
+        document.getElementById('top_img').scrollIntoView({behavior: 'smooth', block: "center"});  
+    }, 1500);
+
+    setTimeout( async()=> {
+        $('#middle_video').removeClass('start_video');
+        $('#middle_video').addClass('end_video');
+    },4000)
+
+    setTimeout(() => {
+        document.getElementById('middle_video').scrollIntoView({behavior: 'smooth', block: "center"});
+    }, 4500);
+
+    setTimeout(()=> {
+        $('#middle_video2').removeClass('start_video');
+        $('#middle_video2').addClass('end_video');
+    },7000)
+
+    setTimeout(()=> {
+        document.getElementById('middle_video2').scrollIntoView({behavior: 'smooth', block: "center"});
+    }, 7500)
+</script>
+</html>
