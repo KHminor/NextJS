@@ -1,10 +1,8 @@
-import MainNav from "../../../util/MainNav";
-
+import NoticeLayout from './layout';
 export default function Home() {
   return (
     <>
-      <MainNav />
-      <main></main>
+      <NoticeLayout />
     </>
   );
 }
