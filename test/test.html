@@ -1,80 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>수빈님 요청 랜딩</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="<? echo $url; ?>/landing/js/jquery.vticker.min.js"></script>
     <script src="<? echo $url; ?>/landing/flip/flip.min.js"></script>
     <style>
-        img, iframe{
-            transition: all 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940);
-        }
-        .start_img {
-            width: 0px;
-            height: 0px;
-            border: solid 0rem #f7f7ff;
-        }
-        .end_img {
-            width: auto;
-            height: 750px;
-            border: solid 1rem #f7f7ff;
-            border-radius: 1rem;
-        }
+      img,
+      iframe {
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .start_img {
+        width: 0px;
+        height: 0px;
+        border: solid 0rem #f7f7ff;
+      }
+      .end_img {
+        width: auto;
+        height: 750px;
+        border: solid 1rem #f7f7ff;
+        border-radius: 1rem;
+      }
 
-        .start_video {
-            width: 0px;
-            height: 0px;
-            border: solid 0rem #f7f7ff;
-        }
-        .end_video {
-            width: 630px;
-            height: 340px;
-            border: solid 1rem #f7f7ff;
-            border-radius: 1rem;
-        }
+      .start_video {
+        width: 0px;
+        height: 0px;
+        border: solid 0rem #f7f7ff;
+      }
+      .end_video {
+        width: 630px;
+        height: 340px;
+        border: solid 1rem #f7f7ff;
+        border-radius: 1rem;
+      }
+      figure {
+        display: grid;
+        align-items: end;
+        grid-template-columns: 50px 1fr;
+        gap: 0.5rem;
+      }
+      
+      .start_face {
+        width: 50px;
+        height: 50px;
+      }
+      .end_face {
+        width: 0px;
+        height: 0px;
+      }
+
+
+      .face_none {
+        visibility: hidden;
+        width: 50px;
+        height: 50px;
+      }
+
+      .text_none {
+        display: none;
+      }
+
+      .text {
+        display: block;
+        width: 50px;
+        height: 50px;
+        scale: 200%;
+      }
     </style>
-</head>
-<body>
-    <figure>
-        <img id="top_img" src="./img/landing.png" alt="" class="start_img">
-    </figure>
-    <figure>
-        <iframe id="middle_video" class="start_video" src="https://www.youtube.com/embed/_V9JxdK-mVY?controls=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </figure>
-    <figure>
-        <iframe id="middle_video2" class="start_video" src="https://www.youtube.com/embed/_V9JxdK-mVY?controls=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </figure>
-</body>
+  </head>
+  <body>
+    <main>
+      <figure>
+        <img id="face1" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
+        <div style="display: flex; align-items: end;">
+          <img id="loading1" src="./img/loading.gif" alt="icon" class="text_none text">
+          <img id="top_img" src="./img/landing.png" alt="" class="start_img" />
+        </div>
+      </figure>
+      <figure>
+        <img id="face2" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
+        <div>
+          <img id="loading2" src="./img/loading.gif" alt="icon" class="text_none text">
+          <iframe
+          id="middle_video"
+          class="start_video"
+          src="https://www.youtube.com/embed/_V9JxdK-mVY?controls=1"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+        </div>
+      </figure>
+      <figure>
+        <img id="face3" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
+        <div>
+          <img id="loading3" src="./img/loading.gif" alt="icon" class="text_none text">
+          <iframe
+          id="middle_video2"
+          class="start_video"
+          src="https://www.youtube.com/embed/_V9JxdK-mVY?controls=1"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+        </div>
+      </figure>
+    </main>
+  </body>
 
-<script>
-    
+  <script>
     setTimeout(()=> {
-        $('#top_img').removeClass('start_img');
-        $('#top_img').addClass('end_img');
-    },1000)
+      $("#face1").removeClass("face_none");
+      $("#loading1").removeClass("text_none");
+    }, 0)
+    
+    setTimeout(() => {
+      $("#loading1").removeClass("text");
+      $("#loading1").addClass("text_none");
+      $("#top_img").removeClass("start_img");
+      $("#top_img").addClass("end_img");
+    }, 1000);
 
     setTimeout(() => {
-        document.getElementById('top_img').scrollIntoView({behavior: 'smooth', block: "center"});  
+      document
+        .getElementById("top_img")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
+      $("#face1").addClass("face_none");
+      $('#face2').removeClass("face_none")
     }, 1500);
 
-    setTimeout( async()=> {
-        $('#middle_video').removeClass('start_video');
-        $('#middle_video').addClass('end_video');
-    },4000)
+    setTimeout(async () => {
+      
+      $("#middle_video").removeClass("start_video");
+      $("#middle_video").addClass("end_video");
+    }, 4000);
 
     setTimeout(() => {
-        document.getElementById('middle_video').scrollIntoView({behavior: 'smooth', block: "center"});
+      document
+        .getElementById("middle_video")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
     }, 4500);
 
-    setTimeout(()=> {
-        $('#middle_video2').removeClass('start_video');
-        $('#middle_video2').addClass('end_video');
-    },7000)
+    setTimeout(() => {
+      $("#middle_video2").removeClass("start_video");
+      $("#middle_video2").addClass("end_video");
+    }, 7000);
 
-    setTimeout(()=> {
-        document.getElementById('middle_video2').scrollIntoView({behavior: 'smooth', block: "center"});
-    }, 7500)
-</script>
+    setTimeout(() => {
+      document
+        .getElementById("middle_video2")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 7500);
+  </script>
 </html>
