@@ -81,8 +81,8 @@
       </figure>
       <figure>
         <img id="face2" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
-        <div>
-          <img id="loading2" src="./img/loading.gif" alt="icon" class="text_none text">
+        <div style="display: flex; align-items: end;">
+          <img id="loading2" src="./img/loading.gif" alt="icon" class="text_none">
           <iframe
           id="middle_video"
           class="start_video"
@@ -97,8 +97,8 @@
       </figure>
       <figure>
         <img id="face3" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
-        <div>
-          <img id="loading3" src="./img/loading.gif" alt="icon" class="text_none text">
+        <div style="display: flex; align-items: end;">
+          <img id="loading3" src="./img/loading.gif" alt="icon" class="text_none">
           <iframe
           id="middle_video2"
           class="start_video"
@@ -133,10 +133,20 @@
         .scrollIntoView({ behavior: "smooth", block: "center" });
       $("#face1").addClass("face_none");
       $('#face2').removeClass("face_none")
+      $("#loading2").removeClass("text_none");
     }, 1500);
 
+    ///////////////////////////////////
+
+    setTimeout(()=> {
+      $("#face2").removeClass("face_none");
+      $("#loading2").addClass("text");
+      $("#loading2").removeClass("text_none");
+    },2000)
+
     setTimeout(async () => {
-      
+      $("#loading2").removeClass("text");
+      $("#loading2").addClass("text_none");
       $("#middle_video").removeClass("start_video");
       $("#middle_video").addClass("end_video");
     }, 4000);
@@ -145,9 +155,22 @@
       document
         .getElementById("middle_video")
         .scrollIntoView({ behavior: "smooth", block: "center" });
+      $("#face2").addClass("face_none");
+      $('#face3').removeClass("face_none")
+      $("#loading3").removeClass("text_none");
     }, 4500);
 
+    ///////////////////////////////////
+
+    setTimeout(()=> {
+      $("#face3").removeClass("face_none");
+      $("#loading3").addClass("text");
+      $("#loading3").removeClass("text_none");
+    },5000)
+
     setTimeout(() => {
+      $("#loading3").removeClass("text");
+      $("#loading3").addClass("text_none");
       $("#middle_video2").removeClass("start_video");
       $("#middle_video2").addClass("end_video");
     }, 7000);
