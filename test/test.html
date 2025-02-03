@@ -9,9 +9,32 @@
     <script src="<? echo $url; ?>/landing/flip/flip.min.js"></script>
     <style>
       img,
-      iframe {
+      iframe, span {
         transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
+
+      button {
+        transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      figure {
+        display: grid;
+        align-items: end;
+        grid-template-columns: 50px 1fr;
+        gap: 0.5rem;
+      }
+
+      button {
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        background-color: rgba( 0, 66, 218, 1 );
+        color: white;
+        border-radius: 20px;
+        font-size: 1.3rem;
+        border: none;
+        cursor: pointer;
+      }
+      
       .start_img {
         width: 0px;
         height: 0px;
@@ -35,88 +58,201 @@
         border: solid 1rem #f7f7ff;
         border-radius: 1rem;
       }
-      figure {
-        display: grid;
-        align-items: end;
-        grid-template-columns: 50px 1fr;
-        gap: 0.5rem;
-      }
       
       .start_face {
         width: 50px;
         height: 50px;
       }
-      .end_face {
-        width: 0px;
-        height: 0px;
-      }
-
 
       .face_none {
-        visibility: hidden;
+        opacity: 0%;
         width: 50px;
         height: 50px;
       }
 
+      .face {
+        opacity: 100%;
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+      }
+
       .text_none {
+        opacity: 0%;
         display: none;
       }
 
       .text {
         display: block;
-        width: 50px;
-        height: 50px;
-        scale: 200%;
+        background-color: #f7f7ff;
+        padding: 0 0.25rem;
+        border: solid 0.25rem #f7f7ff;
+        border-radius: 20px;
       }
+
+      .inside_div {
+        display: inline-flex;
+        align-items: end;
+      }
+
+      .inside_div_span {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .span_start_text {
+        width: 0%;
+        background-color: white;
+        opacity: 0%;
+      }
+
+      .span_end_text {
+        display: inline-flex;
+        opacity: 100%;
+        overflow: auto;
+        align-items: center;
+        background-color: #f7f7ff;
+        height: 100%;
+        width: 100%;
+        padding: 0 1rem;
+        border-radius: 20px;
+      }
+
+      .select_button_list {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      #section_button {
+        display: flex;
+        justify-content: end;
+        align-items: start;
+        gap: 0.5rem;
+      }
+
+      .click_btn {
+        background-color: #fe8e20;
+        
+      }
+      .hidden_btn {
+        display: none;;
+      }
+
     </style>
   </head>
   <body>
-    <main>
+    <main id="main">
+      
       <figure>
         <img id="face1" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
         <div style="display: flex; align-items: end;">
-          <img id="loading1" src="./img/loading.gif" alt="icon" class="text_none text">
-          <img id="top_img" src="./img/landing.png" alt="" class="start_img" />
+          <div class="inside_div">
+            <img id="loading1" src="./img/text_loading.gif" alt="icon" class="text_none text">
+            <img id="top_img" src="./img/landing.png" alt="" class="start_img" />
+          </div>
         </div>
       </figure>
+      
       <figure>
         <img id="face2" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
         <div style="display: flex; align-items: end;">
-          <img id="loading2" src="./img/loading.gif" alt="icon" class="text_none">
-          <iframe
-          id="middle_video"
-          class="start_video"
-          src="https://www.youtube.com/embed/_V9JxdK-mVY?controls=1"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
+          <div class="inside_div">
+            <img id="loading2" src="./img/text_loading.gif" alt="icon" class="text_none">
+            <iframe
+            id="middle_video"
+            class="start_video"
+            src="https://www.youtube.com/embed/_V9JxdK-mVY?controls=1"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+          </div>
         </div>
       </figure>
-      <figure>
+     
+      <figure style="align-items: center;">
         <img id="face3" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
-        <div style="display: flex; align-items: end;">
-          <img id="loading3" src="./img/loading.gif" alt="icon" class="text_none">
-          <iframe
-          id="middle_video2"
-          class="start_video"
-          src="https://www.youtube.com/embed/_V9JxdK-mVY?controls=1"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
+        <div style="height: 100%; display: flex; align-items: center;">
+          <div style="height: 100%;">
+            <img id="loading3" src="./img/text_loading.gif" alt="icon" class="text_none">
+            <span id="span_text1" class="span_start_text">😊반갑습니다! 임플란트 할인 이벤트입니다 설문에 참여해주세요~!</span>
+          </div>
         </div>
       </figure>
+      
+      <figure style="align-items: center;">
+        <img id="face4" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
+        <div style="height: 100%; display: flex; align-items: center;">
+          <div style="height: 100%;">
+            <img id="loading4" src="./img/text_loading.gif" alt="icon" class="text_none">
+            <span id="span_text2" class="span_start_text">✅개당59만 -> 30만</span>
+          </div>
+        </div>
+      </figure>
+    
+      <figure style="align-items: center;">
+        <img id="face5" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
+        <div style="height: 100%; display: flex; align-items: center;">
+          <div style="height: 100%;">
+            <img id="loading5" src="./img/text_loading.gif" alt="icon" class="text_none">
+            <span id="span_text3" class="span_start_text">✅전체590 -> 300만(뼈이식포함)</span>
+          </div>
+        </div>
+      </figure>
+
+      <figure style="align-items: center;">
+        <img id="face6" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
+        <div style="height: 100%; display: flex; align-items: center;">
+          <div style="height: 100%;">
+            <img id="loading6" src="./img/text_loading.gif" alt="icon" class="text_none">
+            <span id="span_text4" class="span_start_text">임플란트 시 가장 중요한 관심사항은 어떻게 되세요? (✅설문진행)</span>
+          </div>
+        </div>
+      </figure>
+      <div id="section_button" style="display: flex; justify-content: end; align-items: start;" class="text_none">
+        <div id="select_button_list" class="select_button_list ">
+          <button>의료진(학력,실력)</button>
+          <button>비용(추가비용여부)</button>
+          <button>술 후 A/S여부</button>
+          <button>병원과의 거리</button>
+        </div>
+        <img id="user1" src="./img/guestAvatar.png" alt="icon" class="face_none start_face"></div>
+      </div>
+
+      <figure style="align-items: center;">
+        <img id="face7" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
+        <div style="height: 100%; display: flex; align-items: center;">
+          <div style="height: 100%;">
+            <img id="loading6" src="./img/text_loading.gif" alt="icon" class="text_none">
+            <span id="span_text4" class="span_start_text">성함이 어떻게 되세요?</span>
+          </div>
+        </div>
+      </figure>
+      <div id="section_button" class="text_none">
+        <div id="select_button_list" class="select_button_list ">
+          <button>의료진(학력,실력)</button>
+          <button>비용(추가비용여부)</button>
+          <button>술 후 A/S여부</button>
+          <button>병원과의 거리</button>
+        </div>
+        <img id="user1" src="./img/guestAvatar.png" alt="icon" class="face_none start_face"></div>
+      </div>
     </main>
   </body>
 
   <script>
+    // const mainTag = document.querySelectorAll("figure")
+    // console.log(mainTag);
+
+    /////////////////////////////////// 1
+
     setTimeout(()=> {
       $("#face1").removeClass("face_none");
+      $("#face1").addClass("face");
       $("#loading1").removeClass("text_none");
     }, 0)
     
@@ -131,15 +267,15 @@
       document
         .getElementById("top_img")
         .scrollIntoView({ behavior: "smooth", block: "center" });
+      $("#face1").removeClass("face");
       $("#face1").addClass("face_none");
-      $('#face2').removeClass("face_none")
-      $("#loading2").removeClass("text_none");
     }, 1500);
 
-    ///////////////////////////////////
+    /////////////////////////////////// 2
 
     setTimeout(()=> {
       $("#face2").removeClass("face_none");
+      $("#face2").addClass("face");
       $("#loading2").addClass("text");
       $("#loading2").removeClass("text_none");
     },2000)
@@ -149,36 +285,130 @@
       $("#loading2").addClass("text_none");
       $("#middle_video").removeClass("start_video");
       $("#middle_video").addClass("end_video");
-    }, 4000);
+    }, 3500);
 
     setTimeout(() => {
       document
         .getElementById("middle_video")
         .scrollIntoView({ behavior: "smooth", block: "center" });
+      $("#face2").removeClass("face");
       $("#face2").addClass("face_none");
-      $('#face3').removeClass("face_none")
-      $("#loading3").removeClass("text_none");
-    }, 4500);
+    }, 4000);
 
-    ///////////////////////////////////
+    /////////////////////////////////// 3
 
     setTimeout(()=> {
       $("#face3").removeClass("face_none");
+      $("#face3").addClass("face");
       $("#loading3").addClass("text");
       $("#loading3").removeClass("text_none");
-    },5000)
+    },4500)
 
     setTimeout(() => {
       $("#loading3").removeClass("text");
       $("#loading3").addClass("text_none");
-      $("#middle_video2").removeClass("start_video");
-      $("#middle_video2").addClass("end_video");
-    }, 7000);
+      $("#span_text1").removeClass("span_start_text");
+      $("#span_text1").addClass("span_end_text");
+    }, 6000);
 
     setTimeout(() => {
       document
-        .getElementById("middle_video2")
+        .getElementById("span_text1")
         .scrollIntoView({ behavior: "smooth", block: "center" });
+        $("#face3").removeClass("face");
+        $("#face3").addClass("face_none");
+    }, 6500);
+
+    /////////////////////////////////// 4
+
+    setTimeout(()=> {
+      $("#face4").removeClass("face_none");
+      $("#face4").addClass("face");
+      $("#loading4").addClass("text");
+      $("#loading4").removeClass("text_none");
+    },7000)
+
+    setTimeout(() => {
+      $("#loading4").removeClass("text");
+      $("#loading4").addClass("text_none");
+      $("#span_text2").removeClass("span_start_text");
+      $("#span_text2").addClass("span_end_text");
     }, 7500);
+
+    setTimeout(() => {
+      document
+        .getElementById("span_text2")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
+        $("#face4").removeClass("face");
+        $("#face4").addClass("face_none");
+    }, 8000);
+
+    /////////////////////////////////// 5
+
+    setTimeout(()=> {
+      $("#face5").removeClass("face_none");
+      $("#face5").addClass("face");
+      $("#loading5").addClass("text");
+      $("#loading5").removeClass("text_none");
+    },8500)
+
+    setTimeout(() => {
+      $("#loading5").removeClass("text");
+      $("#loading5").addClass("text_none");
+      $("#span_text3").removeClass("span_start_text");
+      $("#span_text3").addClass("span_end_text");
+    }, 9000);
+
+    setTimeout(() => {
+      document
+        .getElementById("span_text3")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
+        $("#face5").removeClass("face");
+        $("#face5").addClass("face_none");
+    }, 9500);
+    
+    /////////////////////////////////// 6
+
+    setTimeout(()=> {
+      $("#face6").removeClass("face_none");
+      $("#face6").addClass("face");
+      $("#loading6").addClass("text");
+      $("#loading6").removeClass("text_none");
+    },10000)
+
+    setTimeout(() => {
+      $("#loading6").removeClass("text");
+      $("#loading6").addClass("text_none");
+      $("#span_text4").removeClass("span_start_text");
+      $("#span_text4").addClass("span_end_text");
+    }, 10500);
+
+    setTimeout(() => {
+      document
+        .getElementById("span_text4")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
+      $("#section_button").removeClass("text_none")
+    }, 11000);
+    
+  </script>
+
+  <script>
+    $("#select_button_list button").on('click',function (e){
+      const li = document.querySelectorAll("#select_button_list button");
+      let clickBtn = $(this); // 클릭 버튼
+      li.forEach(e => {
+        if (clickBtn.html()!==e.innerHTML) {
+          e.classList.add('hidden_btn')
+        }
+      });
+
+      $("#user1").removeClass("face_none");
+      $("#user1").addClass("face");
+      clickBtn.addClass('click_btn')
+      
+      // clickBtn.css("background-color", "red")
+      // console.log(clickBtn.html());
+    })
+    // $(document).on('click', "#select_button_list",)
   </script>
 </html>
