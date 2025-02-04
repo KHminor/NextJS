@@ -9,7 +9,7 @@
     <script src="<? echo $url; ?>/landing/flip/flip.min.js"></script>
     <style>
       img,
-      iframe, span {
+      iframe, span, #check {
         transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
 
@@ -100,22 +100,14 @@
         align-items: center;
       }
 
-      .span_start_text {
-        width: 0%;
-        background-color: white;
-        opacity: 0%;
-      }
-
-      .span_end_text {
-        display: inline-flex;
-        opacity: 100%;
-        overflow: auto;
+      .check {
+        display: flex;
         align-items: center;
-        background-color: #f7f7ff;
-        height: 100%;
-        width: 100%;
         padding: 0 1rem;
         border-radius: 20px;
+        background-color: rgba(247, 247, 255, 0);
+        width: 0px;
+        overflow: hidden;
       }
 
       .select_button_list {
@@ -140,10 +132,28 @@
         display: none;;
       }
 
+      .span_div {
+        display: none;
+        height: 50px; 
+        background-color: #f7f7ff;
+        transform: scaleX(0); 
+        transform-origin: left; 
+        transition: all 1s; 
+        align-items: center;
+      }
+
+      .span_text {
+        opacity: 0; 
+        position: relative; 
+        white-space: nowrap;
+        padding: 0 1rem;
+      }
+
     </style>
   </head>
   <body>
     <main id="main">
+      
       
       <figure>
         <img id="face1" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
@@ -179,7 +189,11 @@
         <div style="height: 100%; display: flex; align-items: center;">
           <div style="height: 100%;">
             <img id="loading3" src="./img/text_loading.gif" alt="icon" class="text_none">
-            <span id="span_text1" class="span_start_text">😊반갑습니다! 임플란트 할인 이벤트입니다 설문에 참여해주세요~!</span>
+            <div id="span_div1" class="span_div">
+              <span id="span_text1" class="span_text">
+                😊반갑습니다! 임플란트 할인 이벤트입니다 설문에 참여해주세요~!
+              </span>
+            </div>
           </div>
         </div>
       </figure>
@@ -189,7 +203,11 @@
         <div style="height: 100%; display: flex; align-items: center;">
           <div style="height: 100%;">
             <img id="loading4" src="./img/text_loading.gif" alt="icon" class="text_none">
-            <span id="span_text2" class="span_start_text">✅개당59만 -> 30만</span>
+            <div id="span_div2" class="span_div">
+              <span id="span_text2" class="span_text">
+                ✅개당59만 -> 30만
+              </span>
+            </div>
           </div>
         </div>
       </figure>
@@ -199,7 +217,11 @@
         <div style="height: 100%; display: flex; align-items: center;">
           <div style="height: 100%;">
             <img id="loading5" src="./img/text_loading.gif" alt="icon" class="text_none">
-            <span id="span_text3" class="span_start_text">✅전체590 -> 300만(뼈이식포함)</span>
+            <div id="span_div3" class="span_div">
+              <span id="span_text3" class="span_text">
+                ✅전체590 -> 300만(뼈이식포함)
+              </span>
+            </div>
           </div>
         </div>
       </figure>
@@ -209,7 +231,11 @@
         <div style="height: 100%; display: flex; align-items: center;">
           <div style="height: 100%;">
             <img id="loading6" src="./img/text_loading.gif" alt="icon" class="text_none">
-            <span id="span_text4" class="span_start_text">임플란트 시 가장 중요한 관심사항은 어떻게 되세요? (✅설문진행)</span>
+            <div id="span_div4" class="span_div">
+              <span id="span_text4" class="span_text">
+                임플란트 시 가장 중요한 관심사항은 어떻게 되세요? (✅설문진행)
+              </span>
+            </div>
           </div>
         </div>
       </figure>
@@ -232,21 +258,14 @@
           </div>
         </div>
       </figure>
-      <div id="section_button" class="text_none">
-        <div id="select_button_list" class="select_button_list ">
-          <button>의료진(학력,실력)</button>
-          <button>비용(추가비용여부)</button>
-          <button>술 후 A/S여부</button>
-          <button>병원과의 거리</button>
-        </div>
-        <img id="user1" src="./img/guestAvatar.png" alt="icon" class="face_none start_face"></div>
-      </div>
+      
     </main>
   </body>
 
   <script>
     // const mainTag = document.querySelectorAll("figure")
     // console.log(mainTag);
+    
 
     /////////////////////////////////// 1
 
@@ -307,8 +326,14 @@
     setTimeout(() => {
       $("#loading3").removeClass("text");
       $("#loading3").addClass("text_none");
-      $("#span_text1").removeClass("span_start_text");
-      $("#span_text1").addClass("span_end_text");
+      $("#span_div1").css({'display':'inline-flex'});
+      setTimeout(() => {
+        $("#span_div1").css({'transform': 'scaleX(1)'});
+        setTimeout(() => {
+          $("#span_text1").css({'opacity':'100%'});
+        }, 300);
+      }, 500);
+      
     }, 6000);
 
     setTimeout(() => {
@@ -317,7 +342,7 @@
         .scrollIntoView({ behavior: "smooth", block: "center" });
         $("#face3").removeClass("face");
         $("#face3").addClass("face_none");
-    }, 6500);
+    }, 7000);
 
     /////////////////////////////////// 4
 
@@ -326,14 +351,19 @@
       $("#face4").addClass("face");
       $("#loading4").addClass("text");
       $("#loading4").removeClass("text_none");
-    },7000)
+    },7500)
 
     setTimeout(() => {
       $("#loading4").removeClass("text");
       $("#loading4").addClass("text_none");
-      $("#span_text2").removeClass("span_start_text");
-      $("#span_text2").addClass("span_end_text");
-    }, 7500);
+      $("#span_div2").css({'display':'inline-flex'});
+      setTimeout(() => {
+        $("#span_div2").css({'transform': 'scaleX(1)'});
+        setTimeout(() => {
+          $("#span_text2").css({'opacity':'100%'});
+        }, 300);
+      }, 500);
+    }, 8000);
 
     setTimeout(() => {
       document
@@ -341,7 +371,7 @@
         .scrollIntoView({ behavior: "smooth", block: "center" });
         $("#face4").removeClass("face");
         $("#face4").addClass("face_none");
-    }, 8000);
+    }, 9000);
 
     /////////////////////////////////// 5
 
@@ -350,14 +380,19 @@
       $("#face5").addClass("face");
       $("#loading5").addClass("text");
       $("#loading5").removeClass("text_none");
-    },8500)
+    },9500)
 
     setTimeout(() => {
       $("#loading5").removeClass("text");
       $("#loading5").addClass("text_none");
-      $("#span_text3").removeClass("span_start_text");
-      $("#span_text3").addClass("span_end_text");
-    }, 9000);
+      $("#span_div3").css({'display':'inline-flex'});
+      setTimeout(() => {
+        $("#span_div3").css({'transform': 'scaleX(1)'});
+        setTimeout(() => {
+          $("#span_text3").css({'opacity':'100%'});
+        }, 300);
+      }, 500);
+    }, 10000);
 
     setTimeout(() => {
       document
@@ -365,7 +400,7 @@
         .scrollIntoView({ behavior: "smooth", block: "center" });
         $("#face5").removeClass("face");
         $("#face5").addClass("face_none");
-    }, 9500);
+    }, 11000);
     
     /////////////////////////////////// 6
 
@@ -374,21 +409,26 @@
       $("#face6").addClass("face");
       $("#loading6").addClass("text");
       $("#loading6").removeClass("text_none");
-    },10000)
+    },11000)
 
     setTimeout(() => {
       $("#loading6").removeClass("text");
       $("#loading6").addClass("text_none");
-      $("#span_text4").removeClass("span_start_text");
-      $("#span_text4").addClass("span_end_text");
-    }, 10500);
+      $("#span_div4").css({'display':'inline-flex'});
+      setTimeout(() => {
+        $("#span_div4").css({'transform': 'scaleX(1)'});
+        setTimeout(() => {
+          $("#span_text4").css({'opacity':'100%'});
+        }, 300);
+      }, 500);
+    }, 11500);
 
     setTimeout(() => {
       document
         .getElementById("span_text4")
         .scrollIntoView({ behavior: "smooth", block: "center" });
       $("#section_button").removeClass("text_none")
-    }, 11000);
+    }, 12500);
     
   </script>
 
