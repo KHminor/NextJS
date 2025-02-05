@@ -117,7 +117,7 @@
         gap: 0.5rem;
       }
 
-      #section_button {
+      [id^="section_button"] {
         display: flex;
         justify-content: end;
         align-items: start;
@@ -140,6 +140,7 @@
         transform-origin: left; 
         transition: all 1s; 
         align-items: center;
+        border-radius: 20px;
       }
 
       .span_text {
@@ -191,7 +192,7 @@
             <img id="loading3" src="./img/text_loading.gif" alt="icon" class="text_none">
             <div id="span_div1" class="span_div">
               <span id="span_text1" class="span_text">
-                😊반갑습니다! 임플란트 할인 이벤트입니다 설문에 참여해주세요~!
+                😊반갑습니다! 임플란트 <em style="text-decoration-line: underline;">할인 이벤트입니다</em> 설문에 참여해주세요~!
               </span>
             </div>
           </div>
@@ -239,7 +240,7 @@
           </div>
         </div>
       </figure>
-      <div id="section_button" style="display: flex; justify-content: end; align-items: start;" class="text_none">
+      <div id="section_button_list" style="display: flex; justify-content: end; align-items: start;" class="text_none">
         <div id="select_button_list" class="select_button_list ">
           <button>의료진(학력,실력)</button>
           <button>비용(추가비용여부)</button>
@@ -249,15 +250,28 @@
         <img id="user1" src="./img/guestAvatar.png" alt="icon" class="face_none start_face"></div>
       </div>
 
-      <figure style="align-items: center;">
-        <img id="face7" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
-        <div style="height: 100%; display: flex; align-items: center;">
-          <div style="height: 100%;">
-            <img id="loading6" src="./img/text_loading.gif" alt="icon" class="text_none">
-            <span id="span_text4" class="span_start_text">성함이 어떻게 되세요?</span>
+      <form action="">
+        <figure style="align-items: center;">
+          <img id="face7" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
+          <div style="height: 100%; display: flex; align-items: center;">
+            <div style="height: 100%;">
+              <img id="loading7" src="./img/text_loading.gif" alt="icon" class="text_none">
+              <div id="span_div5" class="span_div">
+                <span id="span_text5" class="span_text">
+                  성함이 어떻게 되세요?
+                </span>
+              </div>
+            </div>
           </div>
+        </figure>
+        <div id="section_button1" style="display: flex; justify-content: end; align-items: start;" class="text_none">
+          <div id="select_button1">
+            <input type="text" id="t_name" name="t_name" maxlength="11" placeholder="EX)홍길동" value="">
+            <button type="button">전송</button>
+          </div>
+          <img id="user2" src="./img/guestAvatar.png" alt="icon" class="face_none start_face"></div>
         </div>
-      </figure>
+      </form>
       
     </main>
   </body>
@@ -331,7 +345,7 @@
         $("#span_div1").css({'transform': 'scaleX(1)'});
         setTimeout(() => {
           $("#span_text1").css({'opacity':'100%'});
-        }, 300);
+        }, 500);
       }, 500);
       
     }, 6000);
@@ -361,7 +375,7 @@
         $("#span_div2").css({'transform': 'scaleX(1)'});
         setTimeout(() => {
           $("#span_text2").css({'opacity':'100%'});
-        }, 300);
+        }, 500);
       }, 500);
     }, 8000);
 
@@ -390,7 +404,7 @@
         $("#span_div3").css({'transform': 'scaleX(1)'});
         setTimeout(() => {
           $("#span_text3").css({'opacity':'100%'});
-        }, 300);
+        }, 500);
       }, 500);
     }, 10000);
 
@@ -419,7 +433,7 @@
         $("#span_div4").css({'transform': 'scaleX(1)'});
         setTimeout(() => {
           $("#span_text4").css({'opacity':'100%'});
-        }, 300);
+        }, 500);
       }, 500);
     }, 11500);
 
@@ -427,8 +441,8 @@
       document
         .getElementById("span_text4")
         .scrollIntoView({ behavior: "smooth", block: "center" });
-      $("#section_button").removeClass("text_none")
-    }, 12500);
+      $("#section_button_list").removeClass("text_none")
+    }, 13500);
     
   </script>
 
@@ -436,7 +450,7 @@
     $("#select_button_list button").on('click',function (e){
       const li = document.querySelectorAll("#select_button_list button");
       let clickBtn = $(this); // 클릭 버튼
-      li.forEach(e => {
+      li.forEach(e => { // 클릭 요소외 다른 버튼 숨기기
         if (clickBtn.html()!==e.innerHTML) {
           e.classList.add('hidden_btn')
         }
@@ -446,9 +460,64 @@
       $("#user1").addClass("face");
       clickBtn.addClass('click_btn')
       
-      // clickBtn.css("background-color", "red")
-      // console.log(clickBtn.html());
+      // 버튼 리스트 클릭시 다음 요소 보이기
+      setTimeout(() => {
+        $("#face7").removeClass("face_none");
+        $("#face7").addClass("face");
+        $("#loading7").addClass("text");
+        $("#loading7").removeClass("text_none");
+      }, 500);
+      setTimeout(() => {
+        $("#loading7").removeClass("text");
+        $("#loading7").addClass("text_none");
+        $("#span_div5").css({'display':'inline-flex'});
+      }, 1000);
+      setTimeout(() => {
+        $("#span_div5").css({'transform': 'scaleX(1)'});
+        setTimeout(() => {
+          $("#span_text5").css({'opacity':'100%'});
+        }, 500);
+      }, 1500);
+      setTimeout(() => {
+        $("#section_button1").removeClass("text_none")
+      }, 2500);
     })
-    // $(document).on('click', "#select_button_list",)
   </script>
+
+  <script>
+    $("#select_button1 button").on('click',function (e){
+      const li = document.querySelectorAll("#select_button1 button");
+      let clickBtn = $(this); // 클릭 버튼
+      li.forEach(e => { // 클릭 요소외 다른 버튼 숨기기
+        if (clickBtn.html()!==e.innerHTML) {
+          e.classList.add('hidden_btn')
+        }
+      });
+
+      $("#user2").removeClass("face_none");
+      $("#user2").addClass("face");
+      clickBtn.html($("#t_name").val())
+      clickBtn.addClass('click_btn')
+      
+      // 버튼 리스트 클릭시 다음 요소 보이기
+      // setTimeout(() => {
+      //   $("#face7").removeClass("face_none");
+      //   $("#face7").addClass("face");
+      //   $("#loading7").addClass("text");
+      //   $("#loading7").removeClass("text_none");
+      //   setTimeout(() => {
+      //     $("#loading7").removeClass("text");
+      //     $("#loading7").addClass("text_none");
+      //     $("#span_div5").css({'display':'inline-flex'});
+      //     setTimeout(() => {
+      //       $("#span_div5").css({'transform': 'scaleX(1)'});
+      //       setTimeout(() => {
+      //         $("#span_text5").css({'opacity':'100%'});
+      //       }, 500);
+      //     }, 500);
+      //   }, 500);
+      // }, 500);
+    });
+  </script>
+
 </html>
