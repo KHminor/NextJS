@@ -134,12 +134,12 @@
 
       .span_div {
         display: none;
-        height: 50px; 
         background-color: #f7f7ff;
         transform: scaleX(0); 
         transform-origin: left; 
         transition: all 1s; 
         align-items: center;
+        padding: 1rem;
         border-radius: 20px;
       }
 
@@ -251,6 +251,7 @@
       </div>
 
       <form action="">
+        <!-- 이름 -->
         <figure style="align-items: center;">
           <img id="face7" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
           <div style="height: 100%; display: flex; align-items: center;">
@@ -266,11 +267,89 @@
         </figure>
         <div id="section_button1" style="display: flex; justify-content: end; align-items: start;" class="text_none">
           <div id="select_button1">
-            <input type="text" id="t_name" name="t_name" maxlength="11" placeholder="EX)홍길동" value="">
+            <input type="text" id="t_name" name="t_name" maxlength="11" placeholder="예)홍길동" value="">
             <button type="button">전송</button>
           </div>
           <img id="user2" src="./img/guestAvatar.png" alt="icon" class="face_none start_face"></div>
         </div>
+
+        <!-- 전화번호 -->
+        <figure style="align-items: center;">
+          <img id="face8" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
+          <div style="height: 100%; display: flex; align-items: center;">
+            <div style="height: 100%;">
+              <img id="loading8" src="./img/text_loading.gif" alt="icon" class="text_none">
+              <div id="span_div6" class="span_div">
+                <span id="span_text6" class="span_text">
+                  전화번호가 어떻게 되세요?
+                </span>
+              </div>
+            </div>
+          </div>
+        </figure>
+        <div id="section_button2" style="display: flex; justify-content: end; align-items: start;" class="text_none">
+          <div id="select_button2">
+            <input name="t_phone" id="t_phone" type="text"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+              maxlength="11" placeholder="전화번호를 입력해 주세요." class="input_text">
+            <button type="button">전송</button>
+          </div>
+          <img id="user3" src="./img/guestAvatar.png" alt="icon" class="face_none start_face"></div>
+        </div>
+
+        <!-- 동의 안내 -->
+        <figure style="align-items: center;">
+          <img id="face9" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
+          <div style="height: 100%; display: flex; align-items: center;">
+            <div style="height: 100%;">
+              <img id="loading9" src="./img/text_loading.gif" alt="icon" class="text_none">
+              <div id="span_div7" class="span_div">
+                <span id="span_text7" class="span_text">
+                  ✅개인정보취급방침동의안내
+                </span>
+              </div>
+            </div>
+          </div>
+        </figure>
+
+        <figure style="align-items: center;">
+          <img id="face10" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
+          <div style="height: 100%; display: flex; align-items: center;">
+            <div style="height: 100%;">
+              <img id="loading10" src="./img/text_loading.gif" alt="icon" class="text_none">
+              <div id="span_div8" class="span_div">
+                <span id="span_text8" class="span_text">
+                  개인정보 수집주체 : 똑똑플란트치과<br>
+                  개인정보 수집항목 : 이름, 연락처, 거주지, 생년월일, 성별, 관심사 등<br>
+                  개인정보 수집 및 이용목적 : 치과 안내 및 임플란트 외 각종 시술상담, 마케팅, 광고에의 활용(전화, 문자)<br>
+                  개인정보 보유 및 이용기간 : 수집일로부터 2년 (고객 동의 철회시 지체없이 파기)<br><br>
+
+                  *상기 동의를 거부할 권리가 있으나, 수집 및 이용에 동의하지 않을 경우 상담 및 이벤트 참여가 불가능합니다.
+                </span>
+              </div>
+            </div>
+          </div>
+        </figure>
+
+        <figure style="align-items: center;">
+          <img id="face11" src="./img/hostAvatar.png" alt="icon" class="face_none start_face">
+          <div style="height: 100%; display: flex; align-items: center;">
+            <div style="height: 100%;">
+              <img id="loading11" src="./img/text_loading.gif" alt="icon" class="text_none">
+              <div id="span_div9" class="span_div">
+                <span id="span_text9" class="span_text">
+                  <!-- 유저명 + 안내에 동의하실까요? -->
+                </span>
+              </div>
+            </div>
+          </div>
+        </figure>
+        <div id="section_button3" style="display: flex; justify-content: end; align-items: start;" class="text_none">
+          <div id="select_button3">
+            <button>네(신청완료)</button>
+          </div>
+        </div>
+
       </form>
       
     </main>
@@ -488,36 +567,141 @@
     $("#select_button1 button").on('click',function (e){
       const li = document.querySelectorAll("#select_button1 button");
       let clickBtn = $(this); // 클릭 버튼
-      li.forEach(e => { // 클릭 요소외 다른 버튼 숨기기
-        if (clickBtn.html()!==e.innerHTML) {
-          e.classList.add('hidden_btn')
-        }
-      });
+      $("#t_name").css({'display':'none'})
 
       $("#user2").removeClass("face_none");
       $("#user2").addClass("face");
       clickBtn.html($("#t_name").val())
       clickBtn.addClass('click_btn')
-      
-      // 버튼 리스트 클릭시 다음 요소 보이기
-      // setTimeout(() => {
-      //   $("#face7").removeClass("face_none");
-      //   $("#face7").addClass("face");
-      //   $("#loading7").addClass("text");
-      //   $("#loading7").removeClass("text_none");
-      //   setTimeout(() => {
-      //     $("#loading7").removeClass("text");
-      //     $("#loading7").addClass("text_none");
-      //     $("#span_div5").css({'display':'inline-flex'});
-      //     setTimeout(() => {
-      //       $("#span_div5").css({'transform': 'scaleX(1)'});
-      //       setTimeout(() => {
-      //         $("#span_text5").css({'opacity':'100%'});
-      //       }, 500);
-      //     }, 500);
-      //   }, 500);
-      // }, 500);
+
+      setTimeout(() => {
+        $("#face8").removeClass("face_none");
+        $("#face8").addClass("face");
+        $("#loading8").addClass("text");
+        $("#loading8").removeClass("text_none");
+      }, 500);
+      setTimeout(() => {
+        $("#loading8").removeClass("text");
+        $("#loading8").addClass("text_none");
+        $("#span_div6").css({'display':'inline-flex'});
+      }, 1000);
+      setTimeout(() => {
+        $("#span_div6").css({'transform': 'scaleX(1)'});
+        setTimeout(() => {
+          $("#span_text6").css({'opacity':'100%'});
+        }, 500);
+      }, 1500);
+      setTimeout(() => {
+        $("#section_button2").removeClass("text_none")
+      }, 2500);
     });
   </script>
+
+<script>
+  $("#select_button2 button").on('click',function (e){
+    const li = document.querySelectorAll("#select_button2 button");
+    let clickBtn = $(this); // 클릭 버튼
+    $("#t_phone").css({'display':'none'})
+
+    $("#user3").removeClass("face_none");
+    $("#user3").addClass("face");
+    clickBtn.html($("#t_phone").val())
+    clickBtn.addClass('click_btn')
+
+    setTimeout(() => {
+      document
+        .getElementById("t_phone")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 500);
+
+    setTimeout(() => {
+      // 동의 안내 1
+      setTimeout(()=> {
+        $("#face9").removeClass("face_none");
+        $("#face9").addClass("face");
+        $("#loading9").addClass("text");
+        $("#loading9").removeClass("text_none");
+      },500)
+
+      setTimeout(() => {
+        $("#loading9").removeClass("text");
+        $("#loading9").addClass("text_none");
+        $("#span_div7").css({'display':'inline-flex'});
+        setTimeout(() => {
+          $("#span_div7").css({'transform': 'scaleX(1)'});
+          setTimeout(() => {
+            $("#span_text7").css({'opacity':'100%'});
+          }, 500);
+        }, 500);
+      }, 500);
+
+      setTimeout(() => {
+        document
+          .getElementById("span_text7")
+          .scrollIntoView({ behavior: "smooth", block: "center" });
+          $("#face9").removeClass("face");
+          $("#face9").addClass("face_none");
+      }, 2000);
+
+      // 동의 안내 2
+      setTimeout(()=> {
+        $("#face10").removeClass("face_none");
+        $("#face10").addClass("face");
+        $("#loading10").addClass("text");
+        $("#loading10").removeClass("text_none");
+      },2500)
+
+      setTimeout(() => {
+        $("#loading10").removeClass("text");
+        $("#loading10").addClass("text_none");
+        $("#span_div8").css({'display':'inline-flex'});
+        setTimeout(() => {
+          $("#span_div8").css({'transform': 'scaleX(1)'});
+          setTimeout(() => {
+            $("#span_text8").css({'opacity':'100%'});
+          }, 500);
+        }, 500);
+      }, 3000);
+
+      setTimeout(() => {
+        document
+          .getElementById("span_text8")
+          .scrollIntoView({ behavior: "smooth", block: "center" });
+          $("#face10").removeClass("face");
+          $("#face10").addClass("face_none");
+      }, 4500);
+
+      // 동의 안내 3
+      setTimeout(()=> {
+        $("#face11").removeClass("face_none");
+        $("#face11").addClass("face");
+        $("#loading11").addClass("text");
+        $("#loading11").removeClass("text_none");
+      },5000)
+
+      setTimeout(() => {
+        $("#loading11").removeClass("text");
+        $("#loading11").addClass("text_none");
+        $("#span_div9").css({'display':'inline-flex'});
+        setTimeout(() => {
+          $("#span_div9").css({'transform': 'scaleX(1)'});
+          setTimeout(() => {
+            $("#span_text9").html(`${$("#t_name").val()}님<br/>안내에 동의하실까요?`)
+            setTimeout(() => {
+              $("#span_text9").css({'opacity':'100%'});
+            }, 500);
+          }, 500);
+        }, 500);
+      }, 5500);
+
+      setTimeout(() => {
+        $("#section_button3").removeClass("text_none")
+        document
+          .getElementById("section_button3")
+          .scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 7500);
+    }, 500);
+  });
+</script>
 
 </html>
